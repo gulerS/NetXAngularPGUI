@@ -12,7 +12,7 @@ import { CustomersComponent } from './customers.component';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: "admin-customer", component: CustomersComponent }
+      { path: "", component: CustomersComponent }
     ])
   ]
 })
