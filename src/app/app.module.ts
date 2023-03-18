@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,9 +20,12 @@ import { BaseComponent } from './base/base.component';
     AdminModule,
     UiModule,
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: "baseUrl", useValue: "https://localhost:7112", multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
