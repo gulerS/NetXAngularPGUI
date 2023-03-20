@@ -1,9 +1,9 @@
 import { AlertifyService, AlertType, AlertLocation } from './../../../../services/admin/alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { CreateProduct } from './../../../../contracts/create-product';
+import { CreateProduct } from '../../../../contracts/CreateProduct';
 import { ProductService } from './../../../../services/common/models/product.service';
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-create',
@@ -15,6 +15,8 @@ export class CreateComponent extends BaseComponent {
   constructor(spinner: NgxSpinnerService, private productService: ProductService,private alertify:AlertifyService) {
     super(spinner);
   }
+
+  @Output() createdProduct: EventEmitter<CreateProduct> = new EventEmitter();
 
   create(name: HTMLInputElement, description: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating);
@@ -31,7 +33,17 @@ export class CreateComponent extends BaseComponent {
         dismissOther: true,
         alertType: AlertType.Success,
         location: AlertLocation.BottomRight
-      })
-     });
+      });
+      this.createdProduct.emit(create_product)
+
+    }, errorMessage => {
+      this.alertify.message(errorMessage,
+        {
+          dismissOther: true,
+          alertType: AlertType.Error,
+          location: AlertLocation.TopRight
+        })
+
+    });
   }
 }
