@@ -11,6 +11,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BaseComponent } from './base/base.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent

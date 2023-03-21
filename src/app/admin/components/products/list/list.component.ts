@@ -52,9 +52,6 @@ export class ListComponent extends BaseComponent implements OnInit {
     await this.getProducts()
   }
 
-  delete(id) {
-        alert(id)
-   }
 
 
 
