@@ -17,7 +17,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     super(spinner);
 
   }
-  displayedColumns: string[] = ['id', 'name', 'description', 'stock', 'price', 'createdDate', 'updatedDate'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'stock', 'price', 'createdDate', 'updatedDate','delete','edit'];
   dataSource: MatTableDataSource<ListProduct> = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,9 +26,11 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async getProducts() {
 
+
+
     this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating);
     const response: { totalCount: number, products: ListProduct[] } = await this.productService.list(
-      this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5,
+      this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 2,
 
       () => { this.hideSpinner(SpinnerType.BallSpinClockwiseFadeRotating) },
       errorMessage => this.alertifyService.message(errorMessage, {
@@ -50,6 +52,9 @@ export class ListComponent extends BaseComponent implements OnInit {
     await this.getProducts()
   }
 
+  delete(id) {
+        alert(id)
+   }
 
 
 

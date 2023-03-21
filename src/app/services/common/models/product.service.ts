@@ -1,3 +1,4 @@
+import { firstValueFrom, Observable } from 'rxjs';
 import { ListProduct } from './../../../contracts/ListProduct';
 import { CreateProduct } from '../../../contracts/CreateProduct';
 import { HttpClientService } from './../http-client.service';
@@ -29,15 +30,25 @@ export class ProductService {
       });
   }
 
-  async list(page: number = 0, take: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number, products: ListProduct[] }> {
+  async list(page: number = 0, take: number = 2, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number, products: ListProduct[] }> {
     const pData: Promise<{ totalCount: number, products: ListProduct[] }> = this.httpClientService.get<{ totalCount: number, products: ListProduct[] }>({
-      controller: "products"
+      controller: "products",
+      queryString: `Page=${page}&Size=${take}`
     }).toPromise();
 
     pData.then(d=>successCallBack())
       .catch(d => ((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message)))
 
     return await pData;
+  }
+
+
+  async delete(id: string) {
+    const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
+      controller: "products"
+    }, id);
+
+    await firstValueFrom(deleteObservable);
   }
 
 }

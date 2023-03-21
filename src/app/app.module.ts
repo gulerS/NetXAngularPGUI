@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BaseComponent } from './base/base.component';
 
+
 @NgModule({
   declarations: [
     AppComponent
