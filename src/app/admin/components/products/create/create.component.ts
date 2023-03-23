@@ -1,3 +1,4 @@
+import { FileUploadOptions } from './../../../../services/common/file-upload/file-upload.component';
 import { AlertifyService, AlertType, AlertLocation } from './../../../../services/admin/alertify.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
@@ -17,7 +18,13 @@ export class CreateComponent extends BaseComponent {
   }
 
   @Output() createdProduct: EventEmitter<CreateProduct> = new EventEmitter();
-
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
+    action: "upload",
+    controller: "product",
+    explanation: "Drag or Select product images.",
+    isAdminPage: true,
+    accept:".png, .gif, .jpg, .jpeg"
+  }
   create(name: HTMLInputElement, description: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating);
     const create_product: CreateProduct = new CreateProduct();

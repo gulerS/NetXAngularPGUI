@@ -9,6 +9,7 @@ import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BaseComponent } from './base/base.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -23,7 +24,8 @@ import { BaseComponent } from './base/base.component';
     UiModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: "baseUrl", useValue: "https://localhost:7112", multi: true }
