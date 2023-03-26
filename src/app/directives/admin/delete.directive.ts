@@ -1,3 +1,4 @@
+import { DialogService } from './../../services/common/dialog.service';
 import { AlertifyService, AlertLocation, AlertType } from './../../services/admin/alertify.service';
 import { DeleteDialogComponent, DeleteState } from './../../dialogs/delete-dialog/delete-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -18,7 +19,8 @@ export class DeleteDirective {
     private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
     public dialog: MatDialog,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private dialogService: DialogService
   ) {
 
     const img = _renderer.createElement("img");
@@ -38,53 +40,57 @@ export class DeleteDirective {
   @HostListener("click")
   async onclick() {
 
-    this.openDialog(async () => {
+    this.dialogService.openDialog({
+      componentType: DeleteDialogComponent,
+      data: DeleteState.Yes,
+      afterClosed: async () => {
 
-      this.spinner.show(SpinnerType.BallSpinClockwiseFadeRotating);
-      const td: HTMLTableCellElement = this.element.nativeElement;
-      await this.httpClientService.delete({
-        controller:this.controller
-      }, this.id).subscribe(data => {
+        this.spinner.show(SpinnerType.BallSpinClockwiseFadeRotating);
+        const td: HTMLTableCellElement = this.element.nativeElement;
+        await this.httpClientService.delete({
+          controller: this.controller
+        }, this.id).subscribe(data => {
 
-        $(td.parentElement)
-          .animate({
-            opacity: 0,
-            left: "+50",
-            height: "toggle"
-          }, 700, () => {
-            this.callback.emit();
-            this.alertify.message("Deleted Successfully", {
-              dismissOther:true,
-              alertType:AlertType.Success,
-              location:AlertLocation.BottomRight
-            });
-          })
+          $(td.parentElement)
+            .animate({
+              opacity: 0,
+              left: "+50",
+              height: "toggle"
+            }, 700, () => {
+              this.callback.emit();
+              this.alertify.message("Deleted Successfully", {
+                dismissOther: true,
+                alertType: AlertType.Success,
+                location: AlertLocation.BottomRight
+              });
+            })
 
-      }, (errorResponse) => {
-        this.spinner.hide(SpinnerType.BallSpinClockwiseFadeRotating);
-        this.alertify.message("An Error occurred", {
-          dismissOther: true,
-          alertType: AlertType.Error,
-          location: AlertLocation.BottomRight
+        }, (errorResponse) => {
+          this.spinner.hide(SpinnerType.BallSpinClockwiseFadeRotating);
+          this.alertify.message("An Error occurred", {
+            dismissOther: true,
+            alertType: AlertType.Error,
+            location: AlertLocation.BottomRight
+          });
+
         });
-
-      });
+      }
     })
 
 
 
   }
 
-  openDialog(afterClose: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: DeleteState.Yes,
-    });
+  // openDialog(afterClose: any): void {
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     data: DeleteState.Yes,
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result == DeleteState.Yes) {
-        afterClose();
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result == DeleteState.Yes) {
+  //       afterClose();
+  //     }
+  //   });
+  // }
 
 }
