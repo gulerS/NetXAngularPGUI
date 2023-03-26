@@ -29,7 +29,7 @@ import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upl
     ToastrModule.forRoot()
   ],
   providers: [
-    { provide: "baseUrl", useValue: "https://localhost:7112", multi: true }
+    { provide: "baseUrl", useValue: "https://localhost:7112/api", multi: true }
   ],
   bootstrap: [AppComponent]
 })

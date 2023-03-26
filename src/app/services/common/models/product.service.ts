@@ -14,7 +14,7 @@ export class ProductService {
 
   create(product: CreateProduct, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
     this.httpClientService.post({
-      controller: "products"
+      controller: "product"
     }, product)
       .subscribe(result => {
         successCallBack();
@@ -32,7 +32,7 @@ export class ProductService {
 
   async list(page: number = 0, take: number = 2, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number, products: ListProduct[] }> {
     const pData: Promise<{ totalCount: number, products: ListProduct[] }> = this.httpClientService.get<{ totalCount: number, products: ListProduct[] }>({
-      controller: "products",
+      controller: "product",
       queryString: `Page=${page}&Size=${take}`
     }).toPromise();
 
@@ -45,7 +45,7 @@ export class ProductService {
 
   async delete(id: string) {
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
-      controller: "products",
+      controller: "product",
     }, id);
 
     await firstValueFrom(deleteObservable);

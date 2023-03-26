@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { DialogService } from './../dialog.service';
 
 import { FileUploadDialogComponent, FileUploadDialogState } from './../../../dialogs/file-upload-dialog/file-upload-dialog.component';
@@ -9,6 +10,8 @@ import { HttpClientService } from './../http-client.service';
 import { Component, Input } from '@angular/core';
 import { NgxFileDropEntry } from 'ngx-file-drop/ngx-file-drop/ngx-file-drop-entry';
 
+import { SpinnerType } from 'src/app/base/base.component';
+
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -19,7 +22,8 @@ export class FileUploadComponent {
     private alertify: AlertifyService,
     private customToastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
   ) {
 
   }
@@ -44,6 +48,8 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => {
+
+        this.spinner.show(SpinnerType.BallSpinClockwiseFadeRotating);
         this.httpclientService.post({
           controller: this.options.controller,
           action: this.options.action,
@@ -51,7 +57,7 @@ export class FileUploadComponent {
           headers: new HttpHeaders({ "responseType": "blob" })
         }, fileData)
           .subscribe(data => {
-
+            this.spinner.hide(SpinnerType.BallSpinClockwiseFadeRotating);
             const message: string = "Upload successful";
             if (this.options.isAdminPage) {
               this.alertify.message(message, {
@@ -69,6 +75,7 @@ export class FileUploadComponent {
 
           },
             (errorResonse: HttpErrorResponse) => {
+              this.spinner.hide(SpinnerType.BallSpinClockwiseFadeRotating);
               const message: string = "An error occurred while uploading the file(s)";
               if (this.options.isAdminPage) {
                 this.alertify.message(message, {
