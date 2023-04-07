@@ -1,3 +1,6 @@
+import { FileUploadDialogComponent } from './../../../dialogs/file-upload-dialog/file-upload-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogModule } from './../../../dialogs/dialog.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,12 +11,13 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
-    FileUploadComponent
+    FileUploadComponent,
+    FileUploadDialogComponent
   ],
   imports: [
     CommonModule,
     NgxFileDropModule,
-    DialogModule
+    MatDialogModule, MatButtonModule
   ],
   exports: [
     FileUploadComponent

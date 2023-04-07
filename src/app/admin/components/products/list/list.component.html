@@ -42,6 +42,10 @@
       <th mat-header-cell *matHeaderCellDef> </th>
       <td [id]="element.id" mat-cell *matCellDef="let element" appDelete  (callback)="getProducts()" controller="products">  </td>
     </ng-container>
+    <ng-container matColumnDef="photos">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="addProductImages(element.id)">Images</button> </td>
+    </ng-container>
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td  mat-cell *matCellDef="let element"> Edit </td>
