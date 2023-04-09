@@ -1,3 +1,4 @@
+import { ListProductImages } from './../../../contracts/ListProductImages';
 import { firstValueFrom, Observable } from 'rxjs';
 import { ListProduct } from './../../../contracts/ListProduct';
 import { CreateProduct } from '../../../contracts/CreateProduct';
@@ -36,7 +37,7 @@ export class ProductService {
       queryString: `Page=${page}&Size=${take}`
     }).toPromise();
 
-    pData.then(d=>successCallBack())
+    pData.then(d => successCallBack())
       .catch(d => ((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message)))
 
     return await pData;
@@ -50,5 +51,28 @@ export class ProductService {
 
     await firstValueFrom(deleteObservable);
   }
+
+  async getImages(id: string, successCallBack?: () => void): Promise<ListProductImages[]> {
+    const getObservable: Observable<ListProductImages[]> = this.httpClientService.get<ListProductImages[]>({
+      action: "GetProductImages",
+      controller: "product"
+    }, id);
+
+    const images: ListProductImages[] = await firstValueFrom(getObservable);
+    successCallBack();
+    return images;
+
+  }
+
+  async deleteImage(id: string, imageId: string, successCallBack?: () => void) {
+    const deleteObservable = this.httpClientService.delete({
+      action: "DeleteProductImage",
+      controller: "product",
+      queryString: `imageId=${imageId}`
+    }, id);
+
+    await firstValueFrom(deleteObservable);
+    successCallBack();
+   }
 
 }

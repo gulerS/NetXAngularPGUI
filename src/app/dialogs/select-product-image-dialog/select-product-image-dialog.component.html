@@ -1,7 +1,20 @@
 <h2 mat-dialog-title>Product Images</h2>
 <mat-dialog-content class="mat-typography">
   <app-file-upload [options]="options"></app-file-upload>
+
+  <mat-card class="product-image-card" *ngFor="let image of images" [id]="'card-'+[image.id]">
+    <mat-card-header></mat-card-header>
+    <img mat-card-image [src]="image.path"
+      width="100%">
+    <mat-card-content></mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="warn" class="product-image-delete-button" (click)="deleteImage(image.id)">DELETE</button>
+    </mat-card-actions>
+  </mat-card>
+
+
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close style="width:100%">Cancel</button>
 </mat-dialog-actions>

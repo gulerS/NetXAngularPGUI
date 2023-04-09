@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
-
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -16,7 +16,7 @@ import { SelectProductImageDialogComponent } from './select-product-image-dialog
   ],
   imports: [
     CommonModule,
-    MatDialogModule, MatButtonModule,
+    MatDialogModule, MatButtonModule, MatCardModule,
     FileUploadModule
   ]
 })
