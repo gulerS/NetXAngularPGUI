@@ -5,7 +5,7 @@ export class ListProduct {
   description: string;
   stock: number;
   price: number;
-  CreatedDate: Date;
-  UpdateDate: Date;
+  createdDate: Date;
+  updateDate: Date;
 
 }
