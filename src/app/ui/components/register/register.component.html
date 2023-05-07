@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header bg-primary text-white fw-bold">
+          Register Form
+        </div>
+        <div class="card-body">
+          <form [formGroup]="frm" (ngSubmit)="onSubmit(frm.value)">
+            <div class="mb-3">
+              <label for="nameSurname" class="form-label">Full Name</label>
+              <input formControlName="nameSurname" id="nameSurname" type="text" class="form-control"
+                [ngClass]="{'is-invalid': submitted && component.nameSurname.errors}"
+                [ngClass]="{'is-valid': submitted && !component.nameSurname.errors}">
+              <small *ngIf="submitted && component.nameSurname.errors?.required" class="form-text text-danger">
+                Please enter full name
+              </small>
+              <small
+                *ngIf="submitted && (component.nameSurname.errors?.maxlength ||component.nameSurname.errors?.minlength)"
+                class="form-text text-danger">
+                Please enter min 3 - max 50 character
+              </small>
+            </div>
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input formControlName="username" id="username" type="text" class="form-control"
+                [ngClass]="{'is-invalid': submitted && component.username.errors}"
+                [ngClass]="{'is-valid': submitted && !component.username.errors}">
+              <small *ngIf="submitted && component.username.errors?.required" class="form-text text-danger">
+                Please enter user name
+              </small>
+              <small *ngIf="submitted && (component.username.errors?.maxlength ||component.username.errors?.minlength)"
+                class="form-text text-danger">
+                Please enter min 3 - max 50 character
+              </small>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input formControlName="email" type="email" id="email" class="form-control"
+                [ngClass]="{'is-invalid': submitted && component.email.errors}"
+                [ngClass]="{'is-valid': submitted && !component.email.errors}">
+              <small *ngIf="submitted && component.email.errors?.required" class="form-text text-danger">
+                Please enter Email address
+              </small>
+              <small *ngIf="submitted && (component.email.errors?.maxlength)" class="form-text text-danger">
+                Please enter max 250 character
+              </small>
+              <small *ngIf="submitted && (component.email.errors?.email)" class="form-text text-danger">
+                Enter a valid Email address
+              </small>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input formControlName="password" id="password" type="password" class="form-control"
+                [ngClass]="{'is-invalid': submitted && component.password.errors}">
+
+              <small *ngIf="submitted && component.password.errors?.required" class="form-text text-danger">
+                Please enter Password
+              </small>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input formControlName="confirmPassword" id="confirmPassword" type="password" class="form-control"
+                [ngClass]="{'is-invalid': submitted && component.confirmPassword.errors }">
+
+              <small *ngIf="submitted && component.confirmPassword.errors?.required" class="form-text text-danger">
+                Please enter Confirm Password
+              </small>
+
+              <small *ngIf="submitted && frm.hasError('notSame')" class="form-text text-danger">
+                Password and Confirm Password not the same
+              </small>
+            </div>
+            <div>
+              <button type="submit" class="btn w-100 btn-primary">Register</button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

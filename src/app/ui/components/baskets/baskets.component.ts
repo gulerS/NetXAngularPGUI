@@ -14,6 +14,6 @@ export class BasketsComponent extends BaseComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating)
+   // this.showSpinner(SpinnerType.BallSpinClockwiseFadeRotating)
   }
 }

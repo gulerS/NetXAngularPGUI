@@ -7,9 +7,9 @@ export class BaseComponent {
   showSpinner(type: SpinnerType) {
     this.spinner.show(type)
 
-    setTimeout(() => {
-      this.hideSpinner(SpinnerType.BallSpinClockwiseFadeRotating)
-    }, 1000);
+    // setTimeout(() => {
+    //   this.hideSpinner(SpinnerType.BallSpinClockwiseFadeRotating)
+    // }, 1000);
   }
 
 
