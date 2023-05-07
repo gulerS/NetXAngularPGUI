@@ -1,3 +1,4 @@
+import { User } from './../../../entities/user';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
@@ -60,7 +61,7 @@ export class RegisterComponent implements OnInit {
    }
 
   submitted: boolean =false;
-  onSubmit(data: any) {
+  onSubmit(data: User) {
     this.submitted = true;
     var x = this.component;
     debugger;
